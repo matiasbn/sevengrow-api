@@ -1,0 +1,10 @@
+{
+  "name": "sevengrow-api",
+  "version": "0.0.1",
+  "description": "Sevengrow api",
+  "main": "server.js",
+  "repository": "git@github.com:matiasbn/sevengrow-api.git",
+  "author": "Matías Barrios",
+  "license": "MIT",
+  "private": true
+}
