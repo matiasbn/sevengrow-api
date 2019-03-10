@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: '.env' });
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -14,13 +14,12 @@ app.use(bodyParser.json())
 
 // Configuración global de rutas
 app.use(require('./routes/index'));
-console.log("mongo:" + process.env.MONGO_URL);
 
 mongoose.connect(process.env.MONGO_URL, (err, res) => {
     if (err) throw err;
     console.log('Base de datos ONLINE');
 });
 
-app.listen(process.env.PORT, () => {
-    console.log('Escuchando puerto: ', process.env.PORT);
+app.listen(process.env.API_PORT, () => {
+    console.log('Escuchando puerto: ', process.env.API_PORT);
 });
