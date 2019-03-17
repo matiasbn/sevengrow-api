@@ -5,6 +5,50 @@ const Humidifier = require('../../models/control/humidifier');
 const app = express();
 const client = require('../../redis');
 
+app.get('/:clientID/control/last', function (req, res) {
+    let clientID = req.params.clientID;
+
+
+    Extractor.find({ clientID }, (err, clientDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        let redisRegister = clientID + '-last-extractor';
+        client.get(redisRegister, async function (error, result) {
+            if (error) {
+                console.log(error);
+                throw error;
+            }
+        });
+    })
+
+    Humidifier.find({ clientID }, (err, clientDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        let redisRegister = clientID + '-last-humidifier';
+        client.get(redisRegister, function (error, result) {
+            if (error) {
+                console.log(error);
+                throw error;
+            }
+            return result;
+        });
+    })
+
+    res.json({
+        ok: true,
+        lastExtractor,
+        lastHumidifier
+    });
+})
+
 app.get('/:clientID/extractor/last', function (req, res) {
 
     let clientID = req.params.clientID;
